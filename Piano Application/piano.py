@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+import threading
 from PIL import ImageTk, Image
 from playsound import playsound
 root = tk.Tk()
@@ -19,9 +20,9 @@ class piano():
         def __init__(self,index):
                 self.index = index
                 if self.index%2 != 0:
-                        Button(frame1,padx=10,pady=100,bg="black",fg="white",relief=RAISED,borderwidth=3,command=lambda:self.PianoSound(self.index),cursor="hand2").grid(row=0,column=self.index)
+                        Button(frame1,padx=10,pady=100,bg="black",fg="white",relief=RAISED,borderwidth=3,command=lambda:threading.Thread(target=self.PianoSound,args=[self.index]).start(),cursor="hand2").grid(row=0,column=self.index)
                 else:
-                        Button(frame1,padx=10,pady=100,bg="white",fg="black",relief=RAISED,borderwidth=2,command=lambda:self.PianoSound(self.index),cursor="hand2").grid(row=0,column=self.index)
+                        Button(frame1,padx=10,pady=100,bg="white",fg="black",relief=RAISED,borderwidth=2,command=lambda:threading.Thread(target=self.PianoSound,args=[self.index]).start(),cursor="hand2").grid(row=0,column=self.index)
 if __name__ == '__main__':
         for i in range(1,24):
                 piano(i)
